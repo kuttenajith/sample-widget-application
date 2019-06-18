@@ -1,0 +1,21 @@
+{
+  "name": "redux-form-material-ui-example",
+  "description": "How to use Material UI components with Redux Form",
+  "version": "0.0.55",
+  "dependencies": {
+    "material-ui": "^0.20.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "redux-form-website-template": "^1.0.7"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
