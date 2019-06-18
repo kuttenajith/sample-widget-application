@@ -2,11 +2,13 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
-import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import asyncValidate from './asyncValidate';
 import validate from './validate';
+
+import Multiselect from 'react-widgets/lib/Multiselect'
+import 'react-widgets/dist/css/react-widgets.css'
+
 
 const renderTextField = (
   { input, label, meta: { touched, error }, ...custom },
@@ -20,13 +22,6 @@ const renderTextField = (
   />
 );
 
-const renderCheckbox = ({ input, label }) => (
-  <Checkbox
-    label={label}
-    checked={input.value ? true : false}
-    onCheck={input.onChange}
-  />
-);
 
 const renderRadioGroup = ({ input, ...rest }) => (
   <RadioButtonGroup
@@ -50,42 +45,73 @@ const renderSelectField = (
   />
 );
 
+
+
+
 const MaterialUiForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <Field
-          name="firstName"
+          name="Name"
           component={renderTextField}
-          label="First Name"
+          label="Name"
         />
       </div>
       <div>
-        <Field name="lastName" component={renderTextField} label="Last Name" />
+        <Field
+          name="number"
+          component={renderTextField}
+          label="Mobile Number"
+        />
       </div>
+     
       <div>
         <Field name="email" component={renderTextField} label="Email" />
       </div>
       <div>
+      <Field
+        name="age"
+        type="number"
+        component={renderTextField}
+        label="Age"
+      /></div>
+      <div><label>Sex</label>
         <Field name="sex" component={renderRadioGroup}>
           <RadioButton value="male" label="male" />
           <RadioButton value="female" label="female" />
         </Field>
       </div>
+     
       <div>
         <Field
-          name="favoriteColor"
+          name="Category"
           component={renderSelectField}
-          label="Favorite Color"
+          label="Category"
         >
-          <MenuItem value="ff0000" primaryText="Red" />
-          <MenuItem value="00ff00" primaryText="Green" />
-          <MenuItem value="0000ff" primaryText="Blue" />
+          <MenuItem value="id 1" primaryText="Category 1" />
+          <MenuItem value="id 2" primaryText="Category 2" />
+          <MenuItem value="id 3" primaryText="Category 3" />
         </Field>
       </div>
+      
+      <div><label>Hobbies</label>
+        <Field name="hobbies" component={renderRadioGroup}>
+          <RadioButton value="A" label="Cycling" />
+          <RadioButton value="B" label="Singing" />
+          <RadioButton value="C" label="Reading" />
+        </Field>
+      </div>
+      
       <div>
-        <Field name="employed" component={renderCheckbox} label="Employed" />
+        <label>Multi select component</label>
+        <Field
+          name="multi"
+          component={Multiselect}
+          defaultValue={[]}
+          onBlur={() => props.onBlur()}
+          data={[ 'A', 'B', 'C' ]}/>
       </div>
       <div>
         <Field
@@ -93,13 +119,13 @@ const MaterialUiForm = props => {
           component={renderTextField}
           label="Notes"
           multiLine={true}
-          rows={2}
+          rows={1}
         />
       </div>
       <div>
         <button type="submit" disabled={pristine || submitting}>Submit</button>
         <button type="button" disabled={pristine || submitting} onClick={reset}>
-          Clear Values
+         Reset
         </button>
       </div>
     </form>
@@ -109,5 +135,4 @@ const MaterialUiForm = props => {
 export default reduxForm({
   form: 'MaterialUiForm', // a unique identifier for this form
   validate,
-  asyncValidate,
 })(MaterialUiForm);
