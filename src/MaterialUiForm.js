@@ -46,8 +46,6 @@ const renderSelectField = (
 );
 
 
-
-
 const MaterialUiForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
@@ -117,8 +115,10 @@ const MaterialUiForm = props => {
         <Field
           name="notes"
           component={renderTextField}
-          label="Notes"
+          label="only 100 words allowed"
+          floatingLabelText="Notes"
           multiLine={true}
+          maxlength="100"
           rows={1}
         />
       </div>
